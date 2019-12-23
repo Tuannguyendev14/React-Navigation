@@ -3,15 +3,31 @@
  */
 
 import {Navigation} from 'react-native-navigation';
-import Demo from './src/demo';
+import Home from './src/component/Home';
+import Detail from './src/component/Detail';
 
-Navigation.registerComponent('demo', () => Demo);
+Navigation.registerComponent('Home', () => Home);
+Navigation.registerComponent('Detail', () => Detail);
 
 Navigation.events().registerAppLaunchedListener(() => {
   Navigation.setRoot({
     root: {
-      component: {
-        name: 'demo',
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Home',
+              options: {
+                topBar: {
+                  title: {
+                    text: 'Upcoming events',
+                    alignment: 'center',
+                  },
+                },
+              },
+            },
+          },
+        ],
       },
     },
   });

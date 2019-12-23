@@ -1,0 +1,61 @@
+import React, {Component} from 'react';
+import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+import data from './Data';
+import {Navigation} from 'react-native-navigation';
+
+export default class Item extends Component {
+  onPress = item => {
+    Navigation.push(this.props.component, {
+      component: {
+        name: 'Detail',
+        passProps: {
+          data: item,
+        },
+        options: {
+          topBar: {
+            title: {
+              text: 'Detail',
+            },
+          },
+        },
+      },
+    });
+  };
+
+  render() {
+    const {item} = this.props;
+    return (
+      <View style={{margin: 15}}>
+        <TouchableOpacity onPress={() => this.onPress(item)}>
+          <Image source={{uri: item.imageUrl}} style={style.styleImage} />
+        </TouchableOpacity>
+        <Text style={style.styleText}>{item.date.en}</Text>
+        <Text style={{color: 'black', fontWeight: 'bold', fontSize: 20}}>
+          {item.title}
+        </Text>
+        <Text style={{color: 'gray', fontSize: 15}}>{item.address.en}</Text>
+      </View>
+    );
+  }
+}
+
+const style = StyleSheet.create({
+  styleFlatListItem: {
+    fontSize: 16,
+    color: 'red',
+    padding: 10,
+  },
+  styleText: {
+    color: 'red',
+    fontSize: 17,
+  },
+  styleImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: 12,
+  },
+  styleView: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+});
