@@ -1,18 +1,7 @@
 import React, {Component} from 'react';
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Platform,
-  TouchableHighlight,
-  Image,
-  Text,
-} from 'react-native';
-import Item from './Item';
-import data from './Data';
-import Detail from './Detail';
-
-import {Navigation} from 'react-native-navigation';
+import {StyleSheet, View, FlatList, Platform} from 'react-native';
+import Item from '../component/Item';
+import data from '../component/Data';
 
 class Home extends Component {
   constructor(props) {

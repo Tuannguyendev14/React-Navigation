@@ -10,9 +10,15 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "lodash": "^4.17.15",
+    "random-string": "^0.2.0",
+    "randomstring": "^1.1.5",
     "react": "16.9.0",
     "react-native": "0.61.5",
-    "react-native-navigation": "^4.0.8"
+    "react-native-button": "^2.4.0",
+    "react-native-modalbox": "^2.0.0",
+    "react-native-navigation": "^4.0.8",
+    "react-native-swipeout": "^2.3.6"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",
