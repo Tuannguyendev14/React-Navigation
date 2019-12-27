@@ -6,6 +6,7 @@ import {
   Platform,
   Image,
   Dimensions,
+  View,
 } from 'react-native';
 
 //npm install react-native-modalbox@latest --save
@@ -14,47 +15,36 @@ import Modal from 'react-native-modalbox';
 //npm i react-native-button
 import Button from 'react-native-button';
 import todoData from './TodoData';
-
+import {connect} from 'react-redux';
+import * as actions from '../redux/actions/index';
 var screen = Dimensions.get('window');
 
-export default class TodoUpdateModal extends Component {
+class TodoUpdateModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      key: '',
       taskName: '',
       date: '',
     };
   }
 
-  showEditModal = (editingTask, flatlistItem) => {
-    // console.log(`editingTask = ${JSON.stringify(editingTask)}`);
-
+  componentDidMount() {
     this.setState({
-      key: editingTask.key,
-      taskName: editingTask.taskName,
-      date: editingTask.date,
-      flatlistItem: flatlistItem,
+      key: this.props.data.key,
+      taskName: this.props.data.taskName,
+      date: this.props.data.date,
     });
+  }
 
-    this.refs.myModal.open();
+  onUpdate = id => {
+    console.log(id);
+    //this.props.onUpdate(id, this.state.taskName);
   };
-
-  // generateKey = numberOfCharacters => {
-  //   return require('random-string')({length: numberOfCharacters});
-  // };
 
   render() {
     return (
-      <Modal
-        ref={'myModal'}
-        style={style.styleModal}
-        position="center"
-        backdrop={true}
-        onClosed={() => {
-          alert('Your data saved ! ');
-        }}>
-        <Text style={style.styleTitle}>Update data</Text>
-
+      <View>
         <TextInput
           style={style.styleTextInput}
           placeholder="Enter task name"
@@ -71,26 +61,10 @@ export default class TodoUpdateModal extends Component {
 
         <Button
           style={style.styleButtonAdd}
-          onPress={() => {
-            // Update existing Food
-            var foundIndex = todoData.findIndex(
-              item => this.state.key == item.key,
-            );
-
-            if (foundIndex < 0) {
-              return; // Not found
-            }
-
-            todoData[foundIndex].taskName = this.state.taskName;
-            todoData[foundIndex].date = this.state.date;
-
-            // Refresh flatlist item
-            this.state.flatlistItem.refreshFlatListItem();
-            this.refs.myModal.close();
-          }}>
+          onPress={this.onUpdate(this.state.key)}>
           Save
         </Button>
-      </Modal>
+      </View>
     );
   }
 }
@@ -130,3 +104,19 @@ const style = StyleSheet.create({
     height: 280,
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    tasks: state.task.tasks,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onUpdate: (id, text) => {
+      dispatch(actions.onUpdateTask(id, text));
+    },
+  };
+};
+
+export default connect(mapStateToProps, null)(TodoUpdateModal);

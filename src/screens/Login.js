@@ -109,14 +109,6 @@ class Login extends Component {
                   {
                     component: {
                       name: 'Profile',
-                      options: {
-                        topBar: {
-                          title: {
-                            text: 'Login',
-                            alignment: 'center',
-                          },
-                        },
-                      },
                     },
                   },
                 ],

@@ -36,11 +36,14 @@ class Profile extends Component {
             style={style.styleImage}
             source={require('../../icons/tn.jpg')}
           />
-          <Image
-            style={{marginTop: -100, marginLeft: 80, borderRadius: 150}}
-            source={require('../../icons/profile.png')}
-          />
-          <View style={{margin: 10}}>
+
+          <View style={style.styleViewProfile}>
+            <Image
+              style={style.styleImageProfile}
+              source={require('../../icons/profile.png')}
+            />
+          </View>
+          <View style={{marginTop: 30, marginHorizontal: 5}}>
             <Text style={style.styleText}>Họ và tên: Nguyễn Hữu Tuấn</Text>
             <Text style={style.styleText}>
               Địa chỉ: Hòa Phước, Hòa Vang, Đà Nắng
@@ -50,12 +53,7 @@ class Profile extends Component {
             <Text style={style.styleText}>Số điện thoại: 0779763016</Text>
           </View>
 
-          <View
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginTop: 10,
-            }}>
+          <View style={style.styleViewButtonLogOut}>
             <TouchableWithoutFeedback onPress={this.onLogOut}>
               <Text style={style.button}>Log Out</Text>
             </TouchableWithoutFeedback>
@@ -87,6 +85,19 @@ const style = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: 'blue',
     color: '#a09292',
+  },
+  styleViewProfile: {
+    alignContent: 'center',
+    alignItems: 'center',
+    marginTop: -80,
+  },
+  styleImageProfile: {
+    borderRadius: 150,
+  },
+  styleViewButtonLogOut: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 25,
   },
 });
 

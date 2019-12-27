@@ -6,18 +6,22 @@ import {
   Platform,
   Image,
   Dimensions,
+  View,
 } from 'react-native';
 // add random-string: yarn add random-string
 //npm i react-native-button
 //npm install react-native-modalbox@latest --save
 import Modal from 'react-native-modalbox';
+import * as actions from '../redux/actions/index';
 
 import Button from 'react-native-button';
 import todoData from './TodoData';
+import DatePicker from 'react-native-datepicker';
+import {connect} from 'react-redux';
 
 var screen = Dimensions.get('window');
 
-export default class TodoAddModal extends Component {
+class TodoAddModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,12 +55,23 @@ export default class TodoAddModal extends Component {
           onChangeText={text => this.setState({newTaskName: text})}
         />
 
-        <TextInput
-          style={style.styleTextInput}
-          placeholder="Enter date "
-          value={this.state.newDate}
-          onChangeText={text => this.setState({newDate: text})}
-        />
+        <View style={style.styleViewDatePicker}>
+          <DatePicker
+            style={style.styleDatePickerInput}
+            date={this.state.newDate}
+            mode="date"
+            placeholder="Select date"
+            format="DD-MM-YYYY"
+            // minDate="2016-05-01"
+            // maxDate="2016-06-01"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            styles={([style.dateIcon], [style.dateInput])}
+            onDateChange={date => {
+              this.setState({newDate: date});
+            }}
+          />
+        </View>
 
         <Button
           style={style.styleButtonAdd}
@@ -75,7 +90,9 @@ export default class TodoAddModal extends Component {
               date: this.state.newDate,
             };
 
-            todoData.push(newTask);
+            this.props.addTask(newTask);
+
+            // todoData.push(newTask);
             this.props.parentFlatList.refreshFlatList(newKey);
             this.refs.myModal.close();
           }}>
@@ -102,16 +119,10 @@ const style = StyleSheet.create({
     padding: 8,
     marginLeft: 70,
     marginRight: 70,
-    marginTop: 10,
+    marginTop: 40,
     height: 40,
     borderRadius: 6,
     backgroundColor: 'green',
-  },
-  styleTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: 'red',
   },
   styleModal: {
     justifyContent: 'center',
@@ -120,4 +131,30 @@ const style = StyleSheet.create({
     width: screen.width - 80,
     height: 280,
   },
+  styleViewDatePicker: {
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  styleDatePickerInput: {
+    width: 270,
+    marginTop: 15,
+  },
+  dateIcon: {
+    position: 'absolute',
+    right: 0,
+    top: 7,
+    // marginLeft: 0,
+  },
+  dateInput: {
+    borderBottomWidth: 1,
+    marginTop: 20,
+    marginBottom: 10,
+  },
 });
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    addTask: newTask => dispatch(actions.addTask(newTask)),
+  };
+};
+export default connect(null, mapDispatchToProps)(TodoAddModal);

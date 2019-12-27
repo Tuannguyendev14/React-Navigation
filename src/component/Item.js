@@ -5,19 +5,32 @@ import {Navigation} from 'react-native-navigation';
 
 export default class Item extends Component {
   onPress = item => {
-    Navigation.push(this.props.component, {
-      component: {
-        name: 'Detail',
-        passProps: {
-          data: item,
-        },
-        options: {
-          topBar: {
-            title: {
-              text: 'Detail',
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Detail',
+              passProps: {
+                data: item,
+              },
+              options: {
+                topBar: {
+                  title: {
+                    text: item.title,
+                    alignment: 'center',
+                  },
+                  rightButtons: [
+                    {
+                      id: 'close',
+                      icon: require('../../icons/close.png'),
+                    },
+                  ],
+                },
+              },
             },
           },
-        },
+        ],
       },
     });
   };

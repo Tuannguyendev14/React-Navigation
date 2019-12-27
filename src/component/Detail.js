@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import data from './Data';
+import {Navigation} from 'react-native-navigation';
 
 export default class Detail extends Component {
   renderItem = ({item}) => {
@@ -17,6 +18,14 @@ export default class Detail extends Component {
         <Image source={{uri: item.imageUrl}} style={style.styleSmallImages} />
       </>
     );
+  };
+  navigationButtonPressed = ({buttonId}) => {
+    console.log('close');
+
+    const {componentId} = this.props;
+    if (buttonId === 'close') {
+      Navigation.dismissModal(componentId);
+    }
   };
 
   render() {
@@ -44,22 +53,22 @@ export default class Detail extends Component {
             <Text style={style.styleText}>SOCIAL</Text>
             <View style={style.styleView}>
               <Image
-                style={style.styleIconAdd}
+                style={style.styleIcon}
                 source={require('../../icons/icon1.jpg')}
               />
               <Text style={style.styleSocialText}>enouvo.com</Text>
             </View>
             <View style={style.styleView}>
               <Image
-                style={style.styleIconAdd}
-                source={require('../../icons/facebook.png')}
+                style={style.styleIcon}
+                source={require('../../icons/facebook1.png')}
               />
               <Text style={style.styleSocialText}>facebook.com/enouvo/</Text>
             </View>
             <View style={style.styleView}>
               <Image
-                style={style.styleIconAdd}
-                source={require('../../icons/facebook.png')}
+                style={style.styleIcon}
+                source={require('../../icons/instagram.png')}
               />
               <Text style={style.styleSocialText}>
                 instagram.com/enouvo.it.solutions/
@@ -77,9 +86,9 @@ const style = StyleSheet.create({
     width: '100%',
     height: 200,
   },
-  styleIconAdd: {
+  styleIcon: {
     width: 50,
-    height: 40,
+    height: 50,
     margin: 5,
   },
   styleSocialText: {
@@ -87,6 +96,7 @@ const style = StyleSheet.create({
     color: 'black',
     padding: 10,
     alignContent: 'center',
+    textAlignVertical: 'center',
   },
   styleText: {
     fontSize: 20,
@@ -101,6 +111,7 @@ const style = StyleSheet.create({
   styleDescription: {
     color: 'gray',
     fontSize: 15,
+    margin: 10,
   },
   styleSmallImages: {
     height: 100,
