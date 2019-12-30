@@ -204,6 +204,7 @@ const style = StyleSheet.create({
   },
   styleViewAdd: {
     flexDirection: 'row',
+    backgroundColor: '#f8fbf3',
   },
   styleViewForm: {
     flexDirection: 'column',

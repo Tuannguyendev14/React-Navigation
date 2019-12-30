@@ -19,14 +19,15 @@ export const actDeleteTask = id => {
   };
 };
 
-export function onUpdateTask(id, text) {
+export function onUpdateTask(id, task) {
   const tasks = store.getState().task.tasks;
-
   const index = tasks.findIndex(function(task) {
     return task.key === id;
   });
-  // tasks[index].taskName = text;
-  console.log('ok');
+  //console.log('index', index);
+  tasks[index].taskName = task.taskName;
+  tasks[index].date = task.date;
+
   return {
     type: types.UPDATE_TASK,
     payload: [...tasks],

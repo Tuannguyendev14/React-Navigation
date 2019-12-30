@@ -4,17 +4,13 @@ import {
   Text,
   TextInput,
   Platform,
-  Image,
   Dimensions,
   View,
 } from 'react-native';
 
-//npm install react-native-modalbox@latest --save
-import Modal from 'react-native-modalbox';
-
-//npm i react-native-button
+import DatePicker from 'react-native-datepicker';
+import {Navigation} from 'react-native-navigation';
 import Button from 'react-native-button';
-import todoData from './TodoData';
 import {connect} from 'react-redux';
 import * as actions from '../redux/actions/index';
 var screen = Dimensions.get('window');
@@ -38,11 +34,29 @@ class TodoUpdateModal extends Component {
   }
 
   onUpdate = id => {
-    console.log(id);
-    //this.props.onUpdate(id, this.state.taskName);
+    var {key, taskName, date} = this.state;
+    var task = {
+      key: id,
+      taskName: taskName,
+      date: date,
+    };
+    console.log(this.state);
+    this.props.onUpdate(id, task);
+    this.onBack();
+  };
+
+  onBack = () => {
+    Navigation.setRoot({
+      root: {
+        component: {
+          name: 'Todo',
+        },
+      },
+    });
   };
 
   render() {
+    console.log(this.state.taskName);
     return (
       <View>
         <TextInput
@@ -51,17 +65,22 @@ class TodoUpdateModal extends Component {
           value={this.state.taskName}
           onChangeText={text => this.setState({taskName: text})}
         />
-
-        <TextInput
-          style={style.styleTextInput}
-          placeholder="Enter date "
+        <DatePicker
+          style={style.styleDatePickerInput}
+          date={this.state.date}
+          mode="date"
+          placeholder="Select date"
+          format="DD-MM-YYYY"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
           value={this.state.date}
-          onChangeText={text => this.setState({date: text})}
+          onDateChange={date => {
+            this.setState({date: date});
+          }}
         />
-
         <Button
           style={style.styleButtonAdd}
-          onPress={this.onUpdate(this.state.key)}>
+          onPress={() => this.onUpdate(this.state.key)}>
           Save
         </Button>
       </View>
@@ -103,6 +122,11 @@ const style = StyleSheet.create({
     width: screen.width - 80,
     height: 280,
   },
+  styleDatePickerInput: {
+    width: 350,
+    marginTop: 15,
+    margin: 30,
+  },
 });
 
 const mapStateToProps = state => {
@@ -113,10 +137,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    onUpdate: (id, text) => {
-      dispatch(actions.onUpdateTask(id, text));
+    onUpdate: (id, task) => {
+      dispatch(actions.onUpdateTask(id, task));
     },
   };
 };
 
-export default connect(mapStateToProps, null)(TodoUpdateModal);
+export default connect(mapStateToProps, mapDispatchToProps)(TodoUpdateModal);

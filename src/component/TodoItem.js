@@ -46,12 +46,6 @@ class TodoItem extends Component {
                     text: 'Update',
                     alignment: 'center',
                   },
-                  rightButtons: [
-                    {
-                      id: 'close',
-                      icon: require('../../icons/close.png'),
-                    },
-                  ],
                 },
               },
             },
@@ -77,6 +71,8 @@ class TodoItem extends Component {
           onPress: () => {
             this.onPress(item);
           },
+          text: 'Update',
+          type: 'Update',
         },
         {
           onPress: () => {
