@@ -26,37 +26,31 @@ class TodoUpdateModal extends Component {
   }
 
   componentDidMount() {
+    const {data} = this.props;
     this.setState({
-      key: this.props.data.key,
-      taskName: this.props.data.taskName,
-      date: this.props.data.date,
+      key: data.key,
+      taskName: data.taskName,
+      date: data.date,
     });
   }
 
-  onUpdate = id => {
+  onUpdateTask = id => {
     var {key, taskName, date} = this.state;
     var task = {
       key: id,
       taskName: taskName,
       date: date,
     };
-    console.log(this.state);
     this.props.onUpdate(id, task);
     this.onBack();
   };
 
   onBack = () => {
-    Navigation.setRoot({
-      root: {
-        component: {
-          name: 'Todo',
-        },
-      },
-    });
+    Navigation.dismissModal(this.props.componentId);
   };
 
   render() {
-    console.log(this.state.taskName);
+    const {key} = this.state;
     return (
       <View>
         <TextInput
@@ -80,7 +74,7 @@ class TodoUpdateModal extends Component {
         />
         <Button
           style={style.styleButtonAdd}
-          onPress={() => this.onUpdate(this.state.key)}>
+          onPress={() => this.onUpdateTask(key)}>
           Save
         </Button>
       </View>
@@ -138,7 +132,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     onUpdate: (id, task) => {
-      dispatch(actions.onUpdateTask(id, task));
+      dispatch(actions.updateTask(id, task));
     },
   };
 };

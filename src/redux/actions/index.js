@@ -19,7 +19,7 @@ export const actDeleteTask = id => {
   };
 };
 
-export function onUpdateTask(id, task) {
+export function updateTask(id, task) {
   const tasks = store.getState().task.tasks;
   const index = tasks.findIndex(function(task) {
     return task.key === id;

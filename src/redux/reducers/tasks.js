@@ -64,6 +64,7 @@ var tasks = (state = initialState, action) => {
 
     case types.UPDATE_TASK:
       return {...state, tasks: action.payload};
+
     default:
       return state;
   }

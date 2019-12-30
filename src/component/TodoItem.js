@@ -3,8 +3,7 @@ import {StyleSheet, View, Text, Alert, Image} from 'react-native';
 import {Navigation} from 'react-native-navigation';
 
 import Swipeout from 'react-native-swipeout';
-// npm install --save react-native-swipeout
-
+import CheckBox from 'react-native-check-box';
 import {connect} from 'react-redux';
 import * as actions from '../redux/actions/index';
 
@@ -14,6 +13,7 @@ class TodoItem extends Component {
     this.state = {
       activeRowKey: null,
       numberOfRefresh: 0,
+      isChecked: false,
     };
   }
 
@@ -27,7 +27,6 @@ class TodoItem extends Component {
 
   onDelete = id => {
     this.props.onDeleteTask(id);
-    // console.log(id);
   };
 
   onPress = item => {
@@ -52,6 +51,12 @@ class TodoItem extends Component {
           },
         ],
       },
+    });
+  };
+
+  isChecked = () => {
+    this.setState({
+      isChecked: !this.state.isChecked,
     });
   };
 
@@ -108,6 +113,11 @@ class TodoItem extends Component {
     return (
       <Swipeout {...swipeSettings}>
         <View style={style.styleView}>
+          <CheckBox
+            style={{padding: 10}}
+            isChecked={this.state.isChecked}
+            onClick={this.isChecked}
+          />
           <Text style={style.styleItem}>{item.taskName}</Text>
         </View>
       </Swipeout>
@@ -125,6 +135,7 @@ const style = StyleSheet.create({
     backgroundColor: 'white',
     borderBottomColor: '#2bb6f9',
     borderBottomWidth: 1,
+    flexDirection: 'row',
   },
 });
 

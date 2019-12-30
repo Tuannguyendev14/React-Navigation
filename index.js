@@ -6,7 +6,6 @@ import SignUp from './src/screens/SignUp';
 import Login from './src/screens/Login';
 import Profile from './src/screens/Profile';
 import Todo from './src/screens/Todo';
-import demo from './src/component/demo';
 import todoUpdateModal from './src/component/TodoUpdateModal';
 
 import {Provider} from 'react-redux';
