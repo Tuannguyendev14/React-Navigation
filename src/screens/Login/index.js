@@ -9,7 +9,9 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from 'react-native';
-import Input from '../component/Input';
+import Input from '../../component/Input';
+
+import icon from '../../../icons/home.png';
 
 class Login extends Component {
   constructor(props) {
@@ -71,7 +73,7 @@ class Login extends Component {
                 options: {
                   bottomTab: {
                     text: 'Home',
-                    icon: require('../../icons/home.png'),
+                    icon: icon,
                     testID: 'FIRST_TAB_BAR_BUTTON',
                   },
                 },
@@ -97,7 +99,7 @@ class Login extends Component {
                 options: {
                   bottomTab: {
                     text: 'Todos',
-                    icon: require('../../icons/todos.jpg'),
+                    icon: require('../../../icons/todos.jpg'),
                     testID: 'FIRST_TAB_BAR_BUTTON',
                   },
                 },
@@ -115,7 +117,7 @@ class Login extends Component {
                 options: {
                   bottomTab: {
                     text: 'Profile',
-                    icon: require('../../icons/profile.png'),
+                    icon: require('../../../icons/profile.png'),
                     testID: 'FIRST_TAB_BAR_BUTTON',
                   },
                 },
@@ -162,7 +164,7 @@ class Login extends Component {
         <View style={style.styleViewImage}>
           <Image
             style={style.styleImage}
-            source={require('../../icons/appIcon.jpg')}
+            source={require('../../../icons/appIcon.jpg')}
           />
         </View>
 

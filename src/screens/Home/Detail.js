@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import data from './Data';
+import data from '../../utils/Data';
 import {Navigation} from 'react-native-navigation';
 
 export default class Detail extends Component {
@@ -54,21 +54,21 @@ export default class Detail extends Component {
             <View style={style.styleView}>
               <Image
                 style={style.styleIcon}
-                source={require('../../icons/icon1.jpg')}
+                source={require('../../../icons/icon1.jpg')}
               />
               <Text style={style.styleSocialText}>enouvo.com</Text>
             </View>
             <View style={style.styleView}>
               <Image
                 style={style.styleIcon}
-                source={require('../../icons/facebook1.png')}
+                source={require('../../../icons/facebook1.png')}
               />
               <Text style={style.styleSocialText}>facebook.com/enouvo/</Text>
             </View>
             <View style={style.styleView}>
               <Image
                 style={style.styleIcon}
-                source={require('../../icons/instagram.png')}
+                source={require('../../../icons/instagram.png')}
               />
               <Text style={style.styleSocialText}>
                 instagram.com/enouvo.it.solutions/

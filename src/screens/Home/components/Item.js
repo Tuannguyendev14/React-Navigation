@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
-import data from './Data';
+// import data from '../../utils/Data';
 import {Navigation} from 'react-native-navigation';
 
 export default class Item extends Component {
@@ -23,7 +23,7 @@ export default class Item extends Component {
                   rightButtons: [
                     {
                       id: 'close',
-                      icon: require('../../icons/close.png'),
+                      icon: require('../../../../icons/close.png'),
                     },
                   ],
                 },

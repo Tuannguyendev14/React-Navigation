@@ -15,12 +15,10 @@ import Button from 'react-native-button';
 
 import _ from 'lodash';
 import {connect} from 'react-redux';
-import * as actions from '../redux/actions/index';
+import * as actions from '../../redux/actions/index';
 
 // import todoData from '../component/TodoData';
-import TodoItem from '../component/TodoItem';
-import TodoAddModal from '../component/TodoAddModal';
-import TodoEditModal from '../component/TodoUpdateModal';
+import TodoItem from './components/TodoItem';
 import DatePicker from 'react-native-datepicker';
 
 class Todo extends Component {
@@ -134,7 +132,7 @@ class Todo extends Component {
               onPress={this.onPressAdd}>
               <Image
                 style={style.styleIconAdd}
-                source={require('../../icons/add.png')}
+                source={require('../../../icons/add.png')}
               />
             </TouchableHighlight>
           </View>

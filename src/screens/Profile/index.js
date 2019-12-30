@@ -8,6 +8,8 @@ import {
   Image,
 } from 'react-native';
 import {Navigation} from 'react-native-navigation';
+import icon from '../../../icons/tn.jpg';
+import iconProfile from '../../../icons/profile.png';
 
 class Profile extends Component {
   onLogOut = () => {
@@ -32,16 +34,10 @@ class Profile extends Component {
     return (
       <ScrollView orientation="vertical">
         <View>
-          <Image
-            style={style.styleImage}
-            source={require('../../icons/tn.jpg')}
-          />
+          <Image style={style.styleImage} source={icon} />
 
           <View style={style.styleViewProfile}>
-            <Image
-              style={style.styleImageProfile}
-              source={require('../../icons/profile.png')}
-            />
+            <Image style={style.styleImageProfile} source={iconProfile} />
           </View>
           <View style={{marginTop: 30, marginHorizontal: 5}}>
             <Text style={style.styleText}>Họ và tên: Nguyễn Hữu Tuấn</Text>

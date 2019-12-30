@@ -5,7 +5,7 @@ import {Navigation} from 'react-native-navigation';
 import Swipeout from 'react-native-swipeout';
 import CheckBox from 'react-native-check-box';
 import {connect} from 'react-redux';
-import * as actions from '../redux/actions/index';
+import * as actions from '../../../redux/actions/index';
 
 class TodoItem extends Component {
   constructor(props) {

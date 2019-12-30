@@ -12,7 +12,7 @@ import DatePicker from 'react-native-datepicker';
 import {Navigation} from 'react-native-navigation';
 import Button from 'react-native-button';
 import {connect} from 'react-redux';
-import * as actions from '../redux/actions/index';
+import * as actions from '../../redux/actions/index';
 var screen = Dimensions.get('window');
 
 class TodoUpdateModal extends Component {

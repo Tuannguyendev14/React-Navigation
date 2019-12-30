@@ -9,8 +9,8 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import {Navigation} from 'react-native-navigation';
-import Input from '../component/Input';
-import Button from '../component/Button';
+import Input from '../../component/Input';
+import Button from '../../component/Button';
 
 class SignUp extends Component {
   constructor(props) {
@@ -133,7 +133,7 @@ class SignUp extends Component {
         <View style={style.styleViewImage}>
           <Image
             style={style.styleImage}
-            source={require('../../icons/appIcon.jpg')}
+            source={require('../../../icons/appIcon.jpg')}
           />
         </View>
         <View style={style.container}>
