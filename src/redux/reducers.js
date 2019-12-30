@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux';
 
-import task from './tasks';
-// import {firestoreReducer} from 'redux-firestore';
+import task from './todoRedux/reducer';
+import userReducer from './userRedux/reducer';
 
 const myReducer = combineReducers({
   task,
-  // firestore: firestoreReducer,
+  user: userReducer,
 });
 
 export default myReducer;

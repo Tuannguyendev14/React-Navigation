@@ -11,6 +11,8 @@ import {
 import {Navigation} from 'react-native-navigation';
 import Input from '../../component/Input';
 import Button from '../../component/Button';
+import {connect} from 'react-redux';
+import {addUser} from '../../redux/userRedux/actions';
 
 class SignUp extends Component {
   constructor(props) {
@@ -111,6 +113,16 @@ class SignUp extends Component {
     if (confirmPass != password) {
       this.setState({errorConfirmPass: 'Password does not match!'});
     }
+
+    const data = {
+      username: userName,
+      email: email,
+      password: password,
+      name: accountName,
+      phoneNumber: phone,
+    };
+
+    this.props.register(data);
   };
 
   getData = (key, value) => {
@@ -128,6 +140,7 @@ class SignUp extends Component {
       errorPassword,
       errorConfirmPass,
     } = this.state;
+
     return (
       <ScrollView orientation="vertical">
         <View style={style.styleViewImage}>
@@ -260,4 +273,16 @@ const style = StyleSheet.create({
   },
 });
 
-export default SignUp;
+const mapStateToProps = state => {
+  return {
+    userData: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    register: data => dispatch(addUser(data)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

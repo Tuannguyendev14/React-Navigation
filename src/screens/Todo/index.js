@@ -15,7 +15,7 @@ import Button from 'react-native-button';
 
 import _ from 'lodash';
 import {connect} from 'react-redux';
-import * as actions from '../../redux/actions/index';
+import * as actions from '../../redux/todoRedux/actions';
 
 // import todoData from '../component/TodoData';
 import TodoItem from './components/TodoItem';

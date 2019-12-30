@@ -11,7 +11,9 @@ import {
 } from 'react-native';
 import Input from '../../component/Input';
 
-import icon from '../../../icons/home.png';
+import iconHome from '../../../icons/home.png';
+import iconTodos from '../../../icons/todos.jpg';
+import iconProfile from '../../../icons/profile.png';
 
 class Login extends Component {
   constructor(props) {
@@ -73,7 +75,7 @@ class Login extends Component {
                 options: {
                   bottomTab: {
                     text: 'Home',
-                    icon: icon,
+                    icon: iconHome,
                     testID: 'FIRST_TAB_BAR_BUTTON',
                   },
                 },
@@ -99,7 +101,7 @@ class Login extends Component {
                 options: {
                   bottomTab: {
                     text: 'Todos',
-                    icon: require('../../../icons/todos.jpg'),
+                    icon: iconTodos,
                     testID: 'FIRST_TAB_BAR_BUTTON',
                   },
                 },
@@ -117,7 +119,8 @@ class Login extends Component {
                 options: {
                   bottomTab: {
                     text: 'Profile',
-                    icon: require('../../../icons/profile.png'),
+                    icon: iconProfile,
+                    // icon: require('../../../icons/profile.png'),
                     testID: 'FIRST_TAB_BAR_BUTTON',
                   },
                 },
