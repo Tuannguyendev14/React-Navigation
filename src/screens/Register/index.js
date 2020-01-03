@@ -13,6 +13,7 @@ import Input from '../../component/Input';
 import Button from '../../component/Button';
 import {connect} from 'react-redux';
 import {addUser} from '../../redux/userRedux/actions';
+import {onLogIn} from '../../navigation';
 
 class SignUp extends Component {
   constructor(props) {
@@ -46,21 +47,7 @@ class SignUp extends Component {
   };
 
   onLogIn = () => {
-    Navigation.setRoot({
-      root: {
-        component: {
-          name: 'Login',
-          options: {
-            topBar: {
-              title: {
-                text: 'Register',
-                alignment: 'center',
-              },
-            },
-          },
-        },
-      },
-    });
+    onLogIn();
   };
 
   onHandleSubmit = event => {

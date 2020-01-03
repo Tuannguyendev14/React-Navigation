@@ -1,15 +1,16 @@
-export getTasks = () => {
+import callApiMock from './utilsMock';
 
-}
+export const getTasks = () => {
+  return callApiMock('/todos', 'GET', null);
+};
 
-export addTask = () => {
+// export const addTask = newTask => {
+//   return callApiMock('/todos', 'POST', newTask);
+// };
 
-}
+// export const updateTask = (task) => {
 
-export updateTask = () => {
+// }
 
-}
-
-export deleteTask = () => {
-    
-}
+// export const deleteTask = (id) => {
+//}

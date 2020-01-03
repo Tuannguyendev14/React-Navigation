@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
 import {Navigation} from 'react-native-navigation';
+import {onChangeIntoMainScreen, onSignUp} from './../../navigation';
+import {connect} from 'react-redux';
+import {logIn} from '../../redux/userRedux/actions';
+import {AsyncStorage} from 'react-native';
+// import {fetchTasks} from '../../redux/todoRedux/actions';
 
 import {
   StyleSheet,
@@ -11,133 +16,39 @@ import {
 } from 'react-native';
 import Input from '../../component/Input';
 
-import iconHome from '../../../icons/home.png';
-import iconTodos from '../../../icons/todos.jpg';
-import iconProfile from '../../../icons/profile.png';
-
 class Login extends Component {
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
     this.state = {
-      userName: 'huutuan',
+      email: 'tuan.nguyen.dev@gmail.com',
       password: 'tuannui123',
     };
   }
 
+  componentDidMount() {
+    const {data} = this.props.userData;
+    console.log(data);
+    // this.props.onFetchTasks();
+  }
+
   onRestart = () => {
     this.setState({
-      errorUserName: '',
+      errorEmail: '',
       errorPassword: '',
     });
   };
 
   onSignUp = () => {
-    Navigation.setRoot({
-      root: {
-        component: {
-          name: 'SignUp',
-          options: {
-            topBar: {
-              title: {
-                text: 'Register',
-                alignment: 'center',
-              },
-            },
-          },
-        },
-      },
-    });
-  };
-
-  onChangeIntoMainScreen = () => {
-    Navigation.setRoot({
-      root: {
-        bottomTabs: {
-          children: [
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Home',
-                      options: {
-                        topBar: {
-                          title: {
-                            text: 'Upcoming events',
-                            alignment: 'center',
-                          },
-                        },
-                      },
-                    },
-                  },
-                ],
-                options: {
-                  bottomTab: {
-                    text: 'Home',
-                    icon: iconHome,
-                    testID: 'FIRST_TAB_BAR_BUTTON',
-                  },
-                },
-              },
-            },
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Todo',
-                      options: {
-                        topBar: {
-                          title: {
-                            text: 'To do list',
-                            alignment: 'center',
-                          },
-                        },
-                      },
-                    },
-                  },
-                ],
-                options: {
-                  bottomTab: {
-                    text: 'Todos',
-                    icon: iconTodos,
-                    testID: 'FIRST_TAB_BAR_BUTTON',
-                  },
-                },
-              },
-            },
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Profile',
-                    },
-                  },
-                ],
-                options: {
-                  bottomTab: {
-                    text: 'Profile',
-                    icon: iconProfile,
-                    // icon: require('../../../icons/profile.png'),
-                    testID: 'FIRST_TAB_BAR_BUTTON',
-                  },
-                },
-              },
-            },
-          ],
-        },
-      },
-    });
+    onSignUp();
   };
 
   onLogin = event => {
-    var {userName, password} = this.state;
+    var {email, password} = this.state;
     this.onRestart();
 
-    if (userName === '') {
-      this.setState({errorUserName: 'Enter user name!'});
+    if (email === '') {
+      this.setState({errorEmail: 'Enter email!'});
     }
     if (password === '') {
       this.setState({errorPassword: 'Enter password!'});
@@ -147,10 +58,22 @@ class Login extends Component {
     }
     if (password.length > 64) {
       this.setState({errorPassword: 'Password is not valid!'});
+    } else {
+      var user = {
+        email: this.state.email,
+        password: this.state.password,
+      };
+      this.props.onLogInUser(user);
+      // AsyncStorage.setItem('user', JSON.stringify(user));
     }
-    if (userName === 'huutuan' && password === 'tuannui123') {
-      alert('Login successfully');
-      this.onChangeIntoMainScreen();
+    // this.storeData();
+  };
+
+  storeData = async () => {
+    try {
+      await AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
+    } catch (error) {
+      // Error saving data
     }
   };
 
@@ -161,7 +84,7 @@ class Login extends Component {
   };
 
   render() {
-    var {errorUserName, errorPassword} = this.state;
+    var {errorEmail, errorPassword} = this.state;
     return (
       <ScrollView style={style.styleScroll}>
         <View style={style.styleViewImage}>
@@ -173,11 +96,10 @@ class Login extends Component {
 
         <View style={style.styleViewInput}>
           <Input
-            getData={e => this.getData('userName', e)}
-            title="User name*"
-            placeholder="Enter user name..."
-            error={errorUserName}
-            value={this.state.userName}
+            getData={e => this.getData('email', e)}
+            title="Email*"
+            placeholder="Enter email..."
+            error={errorEmail}
           />
           <Input
             getData={e => this.getData('password', e)}
@@ -187,7 +109,7 @@ class Login extends Component {
             returnKeyType="go"
             secureTextEntry={true}
             autoCorrect={false}
-            value={this.state.password}
+            // value={this.state.password}
           />
         </View>
 
@@ -261,4 +183,21 @@ const style = StyleSheet.create({
   },
 });
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    userData: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onLogInUser: user => {
+      dispatch(logIn(user));
+    },
+    // onFetchTasks: () => {
+    //   dispatch(fetchTasks());
+    // },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

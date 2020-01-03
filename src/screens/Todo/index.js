@@ -20,6 +20,7 @@ import * as actions from '../../redux/todoRedux/actions';
 // import todoData from '../component/TodoData';
 import TodoItem from './components/TodoItem';
 import DatePicker from 'react-native-datepicker';
+import {fetchTasks} from '../../redux/todoRedux/actions';
 
 class Todo extends Component {
   constructor(props) {
@@ -30,10 +31,6 @@ class Todo extends Component {
       newDate: '',
     };
     this.sectionRef = null;
-  }
-
-  componentDidMount() {
-    // this.props.fetchAllTasks();
   }
 
   refreshFlatList = activeKey => {
@@ -59,16 +56,16 @@ class Todo extends Component {
 
   onPressAdd = () => {
     const {newTaskName, newDate} = this.state;
-    const newKey = this.generateKey(24);
+    const newId = this.generateKey(24);
     if (newTaskName.length == 0 || newDate.length == 0) {
       alert('Enter task name & date!');
     } else {
       const newTask = {
-        key: newKey,
+        id: newId,
         taskName: newTaskName,
         date: newDate,
       };
-      this.refreshFlatList(newKey);
+      this.refreshFlatList(newId);
       this.props.addTask(newTask);
       this.onRestart();
     }
@@ -80,7 +77,7 @@ class Todo extends Component {
 
   showData = (editingTask, flatlistItem) => {
     this.setState({
-      key: editingTask.key,
+      id: editingTask.id,
       newTaskName: editingTask.taskName,
       newDate: editingTask.date,
       flatlistItem: flatlistItem,
@@ -89,18 +86,21 @@ class Todo extends Component {
     // this.refs.myModal.open();
   };
 
+  componentDidMount() {
+    this.props.onFetchTasks();
+  }
+
   render() {
     const {tasks} = this.props;
     const groupData = _.groupBy(tasks, 'date');
 
-    const sectionData = _.map(groupData, (value, key) => {
+    const sectionData = _.map(groupData, (value, id) => {
       return {
-        title: key,
+        title: id,
         data: value,
       };
     });
 
-    // console.log(this.state);
     return (
       <View style={style.styleView}>
         <View style={style.styleViewAdd}>
@@ -195,6 +195,9 @@ const style = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     marginTop: 25,
+    backgroundColor: '#f0f6f7',
+    height: 60,
+    textAlignVertical: 'center',
   },
   container: {
     flex: 1,
@@ -229,6 +232,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     addTask: newTask => dispatch(actions.addTask(newTask)),
+    onFetchTasks: () => {
+      dispatch(fetchTasks());
+    },
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Todo);
