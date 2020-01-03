@@ -20,15 +20,19 @@ import * as actions from '../../redux/todoRedux/actions';
 // import todoData from '../component/TodoData';
 import TodoItem from './components/TodoItem';
 import DatePicker from 'react-native-datepicker';
-import {fetchTasks} from '../../redux/todoRedux/actions';
+import {
+  fetchTasks,
+  addTask,
+  addTaskSuccess,
+} from '../../redux/todoRedux/actions';
 
 class Todo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       deletedRowKey: null,
-      newTaskName: '',
-      newDate: '',
+      taskName: '',
+      date: '',
     };
     this.sectionRef = null;
   }
@@ -49,41 +53,30 @@ class Todo extends Component {
 
   onRestart = () => {
     this.setState({
-      newTaskName: '',
-      newDate: '',
+      taskName: '',
+      date: '',
     });
   };
 
   onPressAdd = () => {
-    const {newTaskName, newDate} = this.state;
+    const {id, taskName, date} = this.state;
     const newId = this.generateKey(24);
-    if (newTaskName.length == 0 || newDate.length == 0) {
+    if (taskName.length == 0 || date.length == 0) {
       alert('Enter task name & date!');
     } else {
-      const newTask = {
-        id: newId,
-        taskName: newTaskName,
-        date: newDate,
+      const task = {
+        id: id,
+        taskName: taskName,
+        date: date,
       };
       this.refreshFlatList(newId);
-      this.props.addTask(newTask);
+      this.props.onAddTask(task);
       this.onRestart();
     }
   };
 
   generateKey = numberOfCharacters => {
     return require('random-string')({length: numberOfCharacters});
-  };
-
-  showData = (editingTask, flatlistItem) => {
-    this.setState({
-      id: editingTask.id,
-      newTaskName: editingTask.taskName,
-      newDate: editingTask.date,
-      flatlistItem: flatlistItem,
-    });
-
-    // this.refs.myModal.open();
   };
 
   componentDidMount() {
@@ -108,20 +101,20 @@ class Todo extends Component {
             <TextInput
               style={style.styleTextInput}
               placeholder="Enter task name"
-              value={this.state.newTaskName}
-              onChangeText={text => this.setState({newTaskName: text})}
+              value={this.state.taskName}
+              onChangeText={text => this.setState({taskName: text})}
             />
 
             <DatePicker
               style={style.styleDatePickerInput}
-              date={this.state.newDate}
+              date={this.state.date}
               mode="date"
               placeholder="Select date"
               format="DD-MM-YYYY"
               confirmBtnText="Confirm"
               cancelBtnText="Cancel"
               onDateChange={date => {
-                this.setState({newDate: date});
+                this.setState({date: date});
               }}
             />
           </View>
@@ -231,7 +224,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    addTask: newTask => dispatch(actions.addTask(newTask)),
+    onAddTask: task => {
+      dispatch(addTask(task));
+    },
     onFetchTasks: () => {
       dispatch(fetchTasks());
     },

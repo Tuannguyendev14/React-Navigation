@@ -4,6 +4,7 @@ import {onChangeIntoMainScreen, onSignUp} from './../../navigation';
 import {connect} from 'react-redux';
 import {logIn} from '../../redux/userRedux/actions';
 import {AsyncStorage} from 'react-native';
+
 // import {fetchTasks} from '../../redux/todoRedux/actions';
 
 import {
@@ -24,12 +25,6 @@ class Login extends Component {
       email: 'tuan.nguyen.dev@gmail.com',
       password: 'tuannui123',
     };
-  }
-
-  componentDidMount() {
-    const {data} = this.props.userData;
-    console.log(data);
-    // this.props.onFetchTasks();
   }
 
   onRestart = () => {
@@ -67,14 +62,6 @@ class Login extends Component {
       // AsyncStorage.setItem('user', JSON.stringify(user));
     }
     // this.storeData();
-  };
-
-  storeData = async () => {
-    try {
-      await AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
-    } catch (error) {
-      // Error saving data
-    }
   };
 
   getData = (key, value) => {
