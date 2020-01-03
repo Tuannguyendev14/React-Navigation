@@ -113,12 +113,17 @@ class TodoItem extends Component {
     return (
       <Swipeout {...swipeSettings}>
         <View style={style.styleView}>
-          <CheckBox
-            style={{padding: 10}}
-            isChecked={this.state.isChecked}
-            onClick={this.isChecked}
-          />
-          <Text style={style.styleItem}>{item.taskName}</Text>
+          <View style={style.styleViewItems}>
+            <CheckBox
+              style={{padding: 10}}
+              isChecked={this.state.isChecked}
+              onClick={this.isChecked}
+            />
+          </View>
+
+          <View style={style.styleViewItems}>
+            <Text style={style.styleItem}>{item.taskName}</Text>
+          </View>
         </View>
       </Swipeout>
     );
@@ -129,13 +134,17 @@ const style = StyleSheet.create({
   styleItem: {
     fontSize: 20,
     color: 'black',
-    margin: 10,
+    marginRight: 10,
   },
   styleView: {
     backgroundColor: 'white',
     borderBottomColor: '#2bb6f9',
     borderBottomWidth: 1,
     flexDirection: 'row',
+  },
+  styleViewItems: {
+    justifyContent: 'center',
+    margin: 5,
   },
 });
 
