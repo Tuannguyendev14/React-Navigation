@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, FlatList, Platform, AsyncStorage} from 'react-native';
+import {StyleSheet, View, FlatList, Platform} from 'react-native';
 import {connect} from 'react-redux';
-
 import Item from './components/Item';
 import data from '../../utils/Data';
-import {onLogIn, onChangeIntoMainScreen} from '../../navigation';
 
 class Home extends Component {
   constructor(props) {
@@ -13,27 +11,6 @@ class Home extends Component {
       deletedRowKey: null,
     };
   }
-
-  componentDidMount() {
-    this.onCheck();
-    // console.log('log--userData ', this.props.userData.data.response);
-    //const {data} = this.props.userData;
-    // alert('Welcome ' + data.username);
-    //console.log(data);
-  }
-
-  onCheck = async () => {
-    try {
-      let user = await AsyncStorage.getItem('user');
-      let parsed = JSON.parse(user);
-      // alert(parsed.username);
-      if (!parsed.token) {
-        onLogIn();
-      }
-    } catch (error) {
-      alert(error);
-    }
-  };
 
   refreshFlatList = activeKey => {
     this.setState(prevState => {

@@ -148,7 +148,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     onDeleteTask: id => {
-      dispatch(actions.actDeleteTask(id));
+      dispatch(actions.deleteTask(id));
     },
   };
 };

@@ -1,14 +1,20 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
-import {fectchTasksSuccess, fectchTasksFailure} from './actions';
+import {
+  fectchTasksSuccess,
+  fectchTasksFailure,
+  deleteTaskSuccess,
+  addTaskSuccess,
+  addTaskFailure,
+  updateTaskSuccess,
+} from './actions';
 import * as types from '../constants/actionTypes';
-import {getTasks} from '../../api/todo';
-// import {onChangeIntoMainScreen} from '../../navigation';
+import {getTasks, deleteTask, addTask, updateTask} from '../../api/todo';
 
 export function* fetchTaskSaga() {
   try {
     const response = yield call(getTasks);
     const data = response.data;
-    console.log('response', data);
+    // console.log('response', data);
     yield put(fectchTasksSuccess(data));
   } catch (error) {
     console.log('error', error.toJSON());
@@ -16,6 +22,46 @@ export function* fetchTaskSaga() {
   }
 }
 
-const todoSagas = () => [takeLatest(types.FETCH_TASKS, fetchTaskSaga)];
+export function* addTaskSaga({newTask}) {
+  try {
+    const response = yield call(addTask, newTask);
+    // console.log(newTask);
+    const task = response.data;
+    // console.log('Success', task);
+    yield put(addTaskSuccess(task));
+  } catch (error) {
+    console.log('error', error);
+    yield put(addTaskFailure(error));
+  }
+}
+
+export function* deleteTaskSaga({id}) {
+  try {
+    const response = yield call(deleteTask, id);
+    const data = response.data;
+    // console.log(id);
+    yield put(deleteTaskSuccess(id));
+  } catch (error) {
+    yield put(fectchTasksFailure({error}));
+  }
+}
+
+export function* updateTaskSaga({id, task}) {
+  try {
+    const response = yield call(updateTask, id, task);
+    const data = response.data;
+    console.log(id, task);
+    yield put(updateTaskSuccess(id, task));
+  } catch (error) {
+    yield put(fectchTasksFailure({error}));
+  }
+}
+
+const todoSagas = () => [
+  takeLatest(types.FETCH_TASKS, fetchTaskSaga),
+  takeLatest(types.ADD_TASK, addTaskSaga),
+  takeLatest(types.DELETE_TASK, deleteTaskSaga),
+  takeLatest(types.UPDATE_TASK, updateTaskSaga),
+];
 
 export default todoSagas();

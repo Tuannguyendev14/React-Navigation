@@ -13,31 +13,55 @@ import iconProfile from '../../../icons/profile.png';
 import {onLogIn} from '../../navigation';
 import {connect} from 'react-redux';
 import {logOut} from '../../redux/userRedux/actions';
+
 class Profile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      email: '',
+    };
+  }
+
   onLogOut = () => {
     this.props.onLogOutUser();
+    onLogIn();
+    this.removeEverything();
   };
 
   removeEverything = async () => {
     try {
       await AsyncStorage.clear();
       alert('Log out successfully!');
-      // onLogIn();
     } catch (e) {
       alert('Logout failed');
     }
   };
 
-  componentDidUpdate() {
-    const {data} = this.props.userData;
-    if (!data.length) {
-      this.removeEverything();
-      // onLogIn();
-    }
+  componentDidMount() {
+    this.onCheck();
   }
 
+  onCheck = async () => {
+    try {
+      let user = await AsyncStorage.getItem('user');
+      let parsed = JSON.parse(user);
+      let username = parsed.username;
+      console.log(username);
+
+      if (parsed) {
+        this.setState({
+          username: username,
+          email: parsed.email,
+        });
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   render() {
-    // console.log('user Data', this.props.userData);
+    console.log(this.state);
     const {data} = this.props.userData;
     return (
       <ScrollView orientation="vertical">
@@ -48,8 +72,10 @@ class Profile extends Component {
             <Image style={style.styleImageProfile} source={iconProfile} />
           </View>
           <View style={{marginTop: 30, marginHorizontal: 5}}>
-            <Text style={style.styleText}>Họ và tên: {data.username}</Text>
-            <Text style={style.styleText}>Email: {data.email}</Text>
+            <Text style={style.styleText}>
+              Họ và tên: {this.state.username}
+            </Text>
+            <Text style={style.styleText}>Email: {this.state.email}</Text>
             <Text style={style.styleText}>Giới tính: Nam</Text>
             <Text style={style.styleText}>Tuổi: 21</Text>
             <Text style={style.styleText}>Số điện thoại: 0779763016</Text>

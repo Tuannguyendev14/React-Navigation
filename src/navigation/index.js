@@ -14,7 +14,7 @@ import store from '../redux/store';
 import iconHome from '../../icons/home.png';
 import iconTodos from '../../icons/todos.jpg';
 import iconProfile from '../../icons/profile.png';
-
+import App from '../../App';
 function ReduxProvider(Component) {
   return props => (
     <Provider store={store}>
@@ -28,11 +28,17 @@ export default () => {
     Navigation.setRoot({
       root: {
         component: {
-          name: 'Login',
+          name: 'App',
         },
       },
     });
   });
+
+  Navigation.registerComponent(
+    'App',
+    () => ReduxProvider(App),
+    () => App,
+  );
 
   Navigation.registerComponent(
     'Detail',

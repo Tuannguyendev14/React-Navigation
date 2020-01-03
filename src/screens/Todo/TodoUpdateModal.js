@@ -50,7 +50,7 @@ class TodoUpdateModal extends Component {
   };
 
   render() {
-    const {key} = this.state;
+    const {id} = this.state;
     return (
       <View>
         <TextInput
@@ -74,7 +74,7 @@ class TodoUpdateModal extends Component {
         />
         <Button
           style={style.styleButtonAdd}
-          onPress={() => this.onUpdateTask(key)}>
+          onPress={() => this.onUpdateTask(id)}>
           Save
         </Button>
       </View>
