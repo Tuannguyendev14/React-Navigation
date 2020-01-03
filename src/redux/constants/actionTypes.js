@@ -1,7 +1,10 @@
-export const SELECT_TASKS = 'SELECT_TASKS';
 export const ADD_TASK = 'ADD_TASK';
 export const UPDATE_TASK = 'UPDATE_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
+
+export const FETCH_TASKS = 'FETCH_TASKS';
+export const FETCH_TASKS_SUCCESS = 'FETCH_TASKS_SUCCESS';
+export const FETCH_TASKS_FAILURE = 'FETCH_TASKS_FAILURE';
 
 export const ADD_USER = 'ADD_USER';
 export const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS';

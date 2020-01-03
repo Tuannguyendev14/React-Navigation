@@ -1,61 +1,13 @@
 import * as types from '../constants/actionTypes';
 
 var initialState = {
-  tasks: [
-    {
-      key: '1',
-      taskName: 'Exercise1',
-      date: '29/12/2019',
-    },
-    {
-      key: '2',
-      taskName: 'Exercise2',
-      date: '29/12/2019',
-    },
-    {
-      key: '3',
-      taskName: 'Exercise3',
-      date: '29/11/2019',
-    },
-    {
-      key: '4',
-      taskName: 'Exercise4',
-      date: '29/11/2019',
-    },
-    {
-      key: '5',
-      taskName: 'Exercise5',
-      date: '29/12/2019',
-    },
-    {
-      key: '6',
-      taskName: 'Exercise6',
-      date: '29/10/2019',
-    },
-    {
-      key: '7',
-      taskName: 'Exercise7',
-      date: '29/10/2019',
-    },
-    {
-      key: '8',
-      taskName: 'Exercise8',
-      date: '29/12/2019',
-    },
-    {
-      key: '9',
-      taskName: 'Exercise9',
-      date: '29/12/2019',
-    },
-  ],
+  tasks: {},
+  error: {},
+  loading: false,
 };
 
 var tasks = (state = initialState, action) => {
   switch (action.type) {
-    case types.SELECT_TASKS:
-      state = action.tasks;
-      return state;
-
     case types.ADD_TASK:
       return {...state, tasks: action.payload};
 
@@ -64,6 +16,20 @@ var tasks = (state = initialState, action) => {
 
     case types.UPDATE_TASK:
       return {...state, tasks: action.payload};
+
+    case types.FETCH_TASKS:
+      return {...state, loading: true};
+
+    case types.FETCH_TASKS_SUCCESS:
+      console.log(action.type);
+      return {...state, tasks: action.payload, loading: false};
+
+    case types.FETCH_TASKS_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
 
     default:
       return state;

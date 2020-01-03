@@ -11,6 +11,10 @@ import todoUpdateModal from '../screens/Todo/TodoUpdateModal';
 import {Provider} from 'react-redux';
 import store from '../redux/store';
 
+import iconHome from '../../icons/home.png';
+import iconTodos from '../../icons/todos.jpg';
+import iconProfile from '../../icons/profile.png';
+
 function ReduxProvider(Component) {
   return props => (
     <Provider store={store}>
@@ -70,4 +74,122 @@ export default () => {
     () => ReduxProvider(todoUpdateModal),
     () => todoUpdateModal,
   );
+};
+
+export const onChangeIntoMainScreen = () => {
+  Navigation.setRoot({
+    root: {
+      bottomTabs: {
+        children: [
+          {
+            stack: {
+              children: [
+                {
+                  component: {
+                    name: 'Home',
+                    options: {
+                      topBar: {
+                        title: {
+                          text: 'Upcoming events',
+                          alignment: 'center',
+                        },
+                      },
+                    },
+                  },
+                },
+              ],
+              options: {
+                bottomTab: {
+                  text: 'Home',
+                  icon: iconHome,
+                  testID: 'FIRST_TAB_BAR_BUTTON',
+                },
+              },
+            },
+          },
+          {
+            stack: {
+              children: [
+                {
+                  component: {
+                    name: 'Todo',
+                    options: {
+                      topBar: {
+                        title: {
+                          text: 'To do list',
+                          alignment: 'center',
+                        },
+                      },
+                    },
+                  },
+                },
+              ],
+              options: {
+                bottomTab: {
+                  text: 'Todos',
+                  icon: iconTodos,
+                  testID: 'FIRST_TAB_BAR_BUTTON',
+                },
+              },
+            },
+          },
+          {
+            stack: {
+              children: [
+                {
+                  component: {
+                    name: 'Profile',
+                  },
+                },
+              ],
+              options: {
+                bottomTab: {
+                  text: 'Profile',
+                  icon: iconProfile,
+                  // icon: require('../../../icons/profile.png'),
+                  testID: 'FIRST_TAB_BAR_BUTTON',
+                },
+              },
+            },
+          },
+        ],
+      },
+    },
+  });
+};
+
+export const onSignUp = () => {
+  Navigation.setRoot({
+    root: {
+      component: {
+        name: 'SignUp',
+        options: {
+          topBar: {
+            title: {
+              text: 'Register',
+              alignment: 'center',
+            },
+          },
+        },
+      },
+    },
+  });
+};
+
+export const onLogIn = () => {
+  Navigation.setRoot({
+    root: {
+      component: {
+        name: 'Login',
+        options: {
+          topBar: {
+            title: {
+              text: 'Register',
+              alignment: 'center',
+            },
+          },
+        },
+      },
+    },
+  });
 };

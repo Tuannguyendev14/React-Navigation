@@ -6,31 +6,39 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   Image,
+  AsyncStorage,
 } from 'react-native';
-import {Navigation} from 'react-native-navigation';
 import icon from '../../../icons/tn.jpg';
 import iconProfile from '../../../icons/profile.png';
-
+import {onLogIn} from '../../navigation';
+import {connect} from 'react-redux';
+import {logOut} from '../../redux/userRedux/actions';
 class Profile extends Component {
   onLogOut = () => {
-    Navigation.setRoot({
-      root: {
-        component: {
-          name: 'Login',
-          options: {
-            topBar: {
-              title: {
-                text: 'Register',
-                alignment: 'center',
-              },
-            },
-          },
-        },
-      },
-    });
+    this.props.onLogOutUser();
   };
 
+  removeEverything = async () => {
+    try {
+      await AsyncStorage.clear();
+      alert('Log out successfully!');
+      // onLogIn();
+    } catch (e) {
+      alert('Logout failed');
+    }
+  };
+
+  componentDidUpdate() {
+    const {data} = this.props.userData;
+    if (!data.length) {
+      this.removeEverything();
+      // onLogIn();
+    }
+  }
+
   render() {
+    // console.log('user Data', this.props.userData);
+    const {data} = this.props.userData;
     return (
       <ScrollView orientation="vertical">
         <View>
@@ -40,10 +48,8 @@ class Profile extends Component {
             <Image style={style.styleImageProfile} source={iconProfile} />
           </View>
           <View style={{marginTop: 30, marginHorizontal: 5}}>
-            <Text style={style.styleText}>Họ và tên: Nguyễn Hữu Tuấn</Text>
-            <Text style={style.styleText}>
-              Địa chỉ: Hòa Phước, Hòa Vang, Đà Nắng
-            </Text>
+            <Text style={style.styleText}>Họ và tên: {data.username}</Text>
+            <Text style={style.styleText}>Email: {data.email}</Text>
             <Text style={style.styleText}>Giới tính: Nam</Text>
             <Text style={style.styleText}>Tuổi: 21</Text>
             <Text style={style.styleText}>Số điện thoại: 0779763016</Text>
@@ -97,4 +103,18 @@ const style = StyleSheet.create({
   },
 });
 
-export default Profile;
+const mapStateToProps = state => {
+  return {
+    userData: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onLogOutUser: () => {
+      dispatch(logOut());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

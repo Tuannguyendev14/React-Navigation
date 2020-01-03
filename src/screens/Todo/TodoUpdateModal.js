@@ -19,7 +19,7 @@ class TodoUpdateModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: '',
+      id: '',
       taskName: '',
       date: '',
     };
@@ -28,16 +28,16 @@ class TodoUpdateModal extends Component {
   componentDidMount() {
     const {data} = this.props;
     this.setState({
-      key: data.key,
+      id: data.id,
       taskName: data.taskName,
       date: data.date,
     });
   }
 
   onUpdateTask = id => {
-    var {key, taskName, date} = this.state;
+    var {id, taskName, date} = this.state;
     var task = {
-      key: id,
+      id: id,
       taskName: taskName,
       date: date,
     };

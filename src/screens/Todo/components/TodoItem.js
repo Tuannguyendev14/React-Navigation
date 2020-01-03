@@ -94,7 +94,7 @@ class TodoItem extends Component {
                 {
                   text: 'Yes',
                   onPress: () => {
-                    this.onDelete(this.props.item.key);
+                    this.onDelete(this.props.item.id);
                     this.props.parentFlatList.refreshFlatList(deletingRow);
                   },
                 },

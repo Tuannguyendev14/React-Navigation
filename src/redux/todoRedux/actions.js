@@ -12,7 +12,7 @@ export const addTask = newTask => {
 
 export const actDeleteTask = id => {
   const tasks = store.getState().task.tasks;
-  const newArr = _.filter(tasks, item => item.key !== id);
+  const newArr = _.filter(tasks, item => item.id !== id);
   return {
     type: types.DELETE_TASK,
     payload: newArr,
@@ -22,7 +22,7 @@ export const actDeleteTask = id => {
 export function updateTask(id, task) {
   const tasks = store.getState().task.tasks;
   const index = tasks.findIndex(function(task) {
-    return task.key === id;
+    return task.id === id;
   });
   //console.log('index', index);
   tasks[index].taskName = task.taskName;
@@ -33,3 +33,24 @@ export function updateTask(id, task) {
     payload: [...tasks],
   };
 }
+
+export const fetchTasks = () => {
+  return {
+    type: types.FETCH_TASKS,
+  };
+};
+
+export const fectchTasksSuccess = tasks => {
+  // console.log(tasks);
+  return {
+    type: types.FETCH_TASKS_SUCCESS,
+    payload: tasks,
+  };
+};
+
+export const fectchTasksFailure = error => {
+  return {
+    type: types.FETCH_TASKS_FAILURE,
+    payload: error,
+  };
+};

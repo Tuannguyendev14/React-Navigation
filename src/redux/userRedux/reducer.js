@@ -1,4 +1,12 @@
-import {ADD_USER, ADD_USER_SUCCESS, ADD_USER_FAILURE} from './actions';
+import {
+  ADD_USER,
+  ADD_USER_SUCCESS,
+  ADD_USER_FAILURE,
+  LOG_IN,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT_SUCCESS,
+} from './actions';
 
 const initialState = {
   data: {},
@@ -15,7 +23,24 @@ const userReducer = (state = initialState, action) => {
       return {...state, data: action.payload, loading: false};
 
     case ADD_USER_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+
+    case LOG_IN:
+      return {...state, loading: true};
+
+    case LOGIN_SUCCESS:
+      return {...state, data: action.payload, loading: false};
+
+    case LOGIN_FAILURE:
       return {...state, error: action.payload, loading: false};
+
+    case LOGOUT_SUCCESS:
+      // console.log(action.type);
+      return {...initialState};
 
     default:
       return state;
