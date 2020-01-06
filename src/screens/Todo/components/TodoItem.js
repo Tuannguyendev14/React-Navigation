@@ -17,7 +17,7 @@ class TodoItem extends Component {
     };
   }
 
-  refreshFlatListItem = () => {
+  refreshSectionList = () => {
     this.setState(prevState => {
       return {
         numberOfRefresh: prevState.numberOfRefresh + 1,
@@ -95,7 +95,7 @@ class TodoItem extends Component {
                   text: 'Yes',
                   onPress: () => {
                     this.onDelete(this.props.item.id);
-                    this.props.parentFlatList.refreshFlatList(deletingRow);
+                    this.props.parentFlatList.refreshSectionList(deletingRow);
                   },
                 },
               ],

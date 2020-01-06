@@ -30,7 +30,7 @@ export const fetchTasks = () => {
   };
 };
 
-export const fectchTasksSuccess = tasks => {
+export const fetchTasksSuccess = tasks => {
   // console.log(tasks);
   return {
     type: types.FETCH_TASKS_SUCCESS,
@@ -38,7 +38,7 @@ export const fectchTasksSuccess = tasks => {
   };
 };
 
-export const fectchTasksFailure = error => {
+export const fetchTasksFailure = error => {
   return {
     type: types.FETCH_TASKS_FAILURE,
     payload: error,

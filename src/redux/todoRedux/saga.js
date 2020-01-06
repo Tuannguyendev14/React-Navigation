@@ -1,7 +1,7 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {
-  fectchTasksSuccess,
-  fectchTasksFailure,
+  fetchTasksSuccess,
+  fetchTasksFailure,
   deleteTaskSuccess,
   addTaskSuccess,
   addTaskFailure,
@@ -15,10 +15,10 @@ export function* fetchTaskSaga() {
     const response = yield call(getTasks);
     const data = response.data;
     // console.log('response', data);
-    yield put(fectchTasksSuccess(data));
+    yield put(fetchTasksSuccess(data));
   } catch (error) {
     console.log('error', error.toJSON());
-    yield put(fectchTasksFailure({error}));
+    yield put(fetchTasksFailure({error}));
   }
 }
 
@@ -42,7 +42,8 @@ export function* deleteTaskSaga({id}) {
     // console.log(id);
     yield put(deleteTaskSuccess(id));
   } catch (error) {
-    yield put(fectchTasksFailure({error}));
+    console.log(error);
+    //yield put(deleteTaskFailure({error}));
   }
 }
 
@@ -53,7 +54,8 @@ export function* updateTaskSaga({id, task}) {
     console.log(id, task);
     yield put(updateTaskSuccess(id, task));
   } catch (error) {
-    yield put(fectchTasksFailure({error}));
+    console.log(error);
+    //yield put(updateTaskFailure({error}));
   }
 }
 

@@ -5,21 +5,6 @@ import Item from './components/Item';
 import data from '../../utils/Data';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      deletedRowKey: null,
-    };
-  }
-
-  refreshFlatList = activeKey => {
-    this.setState(prevState => {
-      return {
-        deletedRowKey: activeKey,
-      };
-    });
-  };
-
   render() {
     return (
       <View style={style.styleView}>

@@ -15,6 +15,7 @@ import iconHome from '../../icons/home.png';
 import iconTodos from '../../icons/todos.jpg';
 import iconProfile from '../../icons/profile.png';
 import App from '../../App';
+
 function ReduxProvider(Component) {
   return props => (
     <Provider store={store}>
@@ -75,6 +76,7 @@ export default () => {
     () => ReduxProvider(Home),
     () => Home,
   );
+
   Navigation.registerComponent(
     'todoUpdateModal',
     () => ReduxProvider(todoUpdateModal),

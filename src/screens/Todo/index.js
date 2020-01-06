@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {
   StyleSheet,
   View,
-  FlatList,
   Platform,
   TouchableHighlight,
   Image,
@@ -11,20 +10,11 @@ import {
   SafeAreaView,
   TextInput,
 } from 'react-native';
-import Button from 'react-native-button';
-
 import _ from 'lodash';
 import {connect} from 'react-redux';
-import * as actions from '../../redux/todoRedux/actions';
-
-// import todoData from '../component/TodoData';
 import TodoItem from './components/TodoItem';
 import DatePicker from 'react-native-datepicker';
-import {
-  fetchTasks,
-  addTask,
-  addTaskSuccess,
-} from '../../redux/todoRedux/actions';
+import {fetchTasks, addTask} from '../../redux/todoRedux/actions';
 
 class Todo extends Component {
   constructor(props) {
@@ -37,7 +27,7 @@ class Todo extends Component {
     this.sectionRef = null;
   }
 
-  refreshFlatList = activeKey => {
+  refreshSectionList = activeKey => {
     this.setState(prevState => {
       return {
         deletedRowKey: activeKey,
@@ -61,7 +51,7 @@ class Todo extends Component {
   onPressAdd = () => {
     const {id, taskName, date} = this.state;
     const newId = this.generateKey(24);
-    if (taskName.length == 0 || date.length == 0) {
+    if (taskName.length === 0 || date.length === 0) {
       alert('Enter task name & date!');
     } else {
       const task = {
@@ -69,7 +59,7 @@ class Todo extends Component {
         taskName: taskName,
         date: date,
       };
-      this.refreshFlatList(newId);
+      this.refreshSectionList(newId);
       this.props.onAddTask(task);
       this.onRestart();
     }
@@ -118,6 +108,7 @@ class Todo extends Component {
               }}
             />
           </View>
+
           <View style={style.styleViewButtonAdd}>
             <TouchableHighlight
               style={style.styleButtonAdd}
