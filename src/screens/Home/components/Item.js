@@ -20,12 +20,6 @@ export default class Item extends Component {
                     text: item.title,
                     alignment: 'center',
                   },
-                  rightButtons: [
-                    {
-                      id: 'close',
-                      icon: require('../../../../icons/close.png'),
-                    },
-                  ],
                 },
               },
             },

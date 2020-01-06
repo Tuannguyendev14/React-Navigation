@@ -9,7 +9,6 @@ import {
 import {onLogIn, onChangeIntoMainScreen} from './src/navigation';
 
 export default class App extends Component {
-  //   state = {loaded: false};
   constructor() {
     super();
   }
@@ -34,7 +33,7 @@ export default class App extends Component {
   };
 
   componentWillMount() {
-    setTimeout(() => {}, 1000);
+    setTimeout(() => {}, 3000);
   }
   render() {
     return (

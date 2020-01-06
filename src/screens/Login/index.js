@@ -1,12 +1,7 @@
 import React, {Component} from 'react';
-import {Navigation} from 'react-native-navigation';
-import {onChangeIntoMainScreen, onSignUp} from './../../navigation';
+import {onSignUp} from './../../navigation';
 import {connect} from 'react-redux';
 import {logIn} from '../../redux/userRedux/actions';
-import {AsyncStorage} from 'react-native';
-
-// import {fetchTasks} from '../../redux/todoRedux/actions';
-
 import {
   StyleSheet,
   View,
@@ -59,9 +54,7 @@ class Login extends Component {
         password: this.state.password,
       };
       this.props.onLogInUser(user);
-      // AsyncStorage.setItem('user', JSON.stringify(user));
     }
-    // this.storeData();
   };
 
   getData = (key, value) => {

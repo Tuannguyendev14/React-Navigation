@@ -5,7 +5,6 @@ import {
   Image,
   StyleSheet,
   FlatList,
-  SafeAreaView,
   ScrollView,
 } from 'react-native';
 import data from '../../utils/Data';
@@ -29,13 +28,14 @@ export default class Detail extends Component {
   };
 
   render() {
-    const {imageUrl} = this.props.data;
+    const {imageUrl, subtitle} = this.props.data;
     return (
       <ScrollView orientation="vertical">
         <View>
           <Image source={{uri: imageUrl}} style={style.styleImage} />
 
           <Text style={style.styleText}>IMAGE</Text>
+
           <FlatList
             data={data}
             keyExtractor={(item, index) => index.toString()}
@@ -45,12 +45,12 @@ export default class Detail extends Component {
 
           <View style={{margin: 5}}>
             <Text style={style.styleText}>DESCRIPTION</Text>
-            <Text style={style.styleDescription}>
-              {this.props.data.subtitle.en}
-            </Text>
+            <Text style={style.styleDescription}>{subtitle.en}</Text>
           </View>
+
           <View style={{margin: 5}}>
             <Text style={style.styleText}>SOCIAL</Text>
+
             <View style={style.styleView}>
               <Image
                 style={style.styleIcon}
@@ -58,6 +58,7 @@ export default class Detail extends Component {
               />
               <Text style={style.styleSocialText}>enouvo.com</Text>
             </View>
+
             <View style={style.styleView}>
               <Image
                 style={style.styleIcon}
@@ -65,6 +66,7 @@ export default class Detail extends Component {
               />
               <Text style={style.styleSocialText}>facebook.com/enouvo/</Text>
             </View>
+
             <View style={style.styleView}>
               <Image
                 style={style.styleIcon}
